@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ProxyNet/Home</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <style>
+<title>ProxyNet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
   body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -105,11 +106,37 @@
   const myInput = document.getElementById('myInput');
   const myButton = document.getElementById('myButton');
 
+  // Lista popularnych rozszerzeń domen, które będziemy sprawdzać
+  const topLevelDomains = [
+    '.com', '.net', '.org', '.pl', '.co', '.io', '.xyz', '.online', '.info', '.biz', '.tech', '.app', '.dev', '.gov', '.edu'
+  ];
+
   function myFunction() {
     const inputText = myInput.value.trim();
+
     if (inputText === "") {
       alert("Type a Text before search!");
+      return; // Zatrzymaj funkcję, jeśli pole jest puste
+    }
+
+    // Sprawdź, czy wpisany tekst wygląda jak domena
+    let isDomain = false;
+    for (const tld of topLevelDomains) {
+      if (inputText.endsWith(tld) && inputText.length > tld.length + 1) { // Sprawdzamy czy kończy się na TLD i ma coś przed nim
+        isDomain = true;
+        break;
+      }
+    }
+
+    if (isDomain) {
+      // Jeśli to wygląda jak domena, spróbuj przekierować bezpośrednio
+      let url = inputText;
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url; // Dodaj https:// jeśli brakuje protokołu
+      }
+      window.location.href = url;
     } else {
+      // W przeciwnym razie wyszukaj w DuckDuckGo
       window.location.href = "https://duckduckgo.com/?t=h_&q=" + encodeURIComponent(inputText) + "&ia=web";
     }
   }
