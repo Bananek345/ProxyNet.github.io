@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ProxyNet</title>
-<style>
+<title>ProxyNet/Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <style>
   body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -13,33 +13,36 @@
     margin: 0;
     background-color: #f4f4f4;
     color: #333;
-    padding: 20px; /* Added padding for smaller screens */
-    box-sizing: border-box; /* Include padding in element's total width and height */
+    padding: 15px; /* Domyślny padding dla większych ekranów */
+    box-sizing: border-box;
+    font-size: 16px; /* Domyślny rozmiar czcionki dla komputera */
   }
   h1 {
     color: #007bff;
     margin-bottom: 20px;
-    text-align: center; /* Center text for responsiveness */
+    text-align: center;
+    font-size: 2.5em; /* Domyślny rozmiar dla komputera */
   }
   input[type="search"] {
-    padding: 10px;
+    padding: 8px; /* Domyślny padding dla komputera */
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 300px;
-    max-width: 100%; /* Changed to 100% to fill available width */
+    width: 350px; /* Domyślna szerokość dla komputera */
+    max-width: 90%; /* Zapewnia responsywność na węższych ekranach */
     margin-bottom: 10px;
-    box-sizing: border-box; /* Include padding and border in the element's total width */
+    box-sizing: border-box;
+    font-size: 1em; /* Domyślny rozmiar czcionki dla komputera */
   }
   button {
-    padding: 10px 20px;
+    padding: 8px 18px; /* Domyślny padding dla komputera */
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    width: 100%; /* Make button full width on smaller screens */
-    max-width: 300px; /* Limit button width on larger screens */
+    font-size: 1em; /* Domyślny rozmiar czcionki dla komputera */
+    width: auto; /* Domyślna szerokość przycisku */
+    max-width: 350px; /* Ograniczenie szerokości przycisku */
     box-sizing: border-box;
   }
   button:hover {
@@ -48,36 +51,44 @@
   h3 {
     margin-top: 20px;
     color: #666;
-    text-align: center; /* Center text for responsiveness */
+    text-align: center;
+    font-size: 0.9em; /* Domyślny rozmiar dla komputera */
   }
 
-  /* --- Media Queries for Responsiveness --- */
-  @media (max-width: 600px) {
+  /* --- Media Queries dla telefonów (mniejsze ekrany) --- */
+  @media (max-width: 768px) { /* Zaczynamy powiększać od tabletów w dół */
+    body {
+      padding: 20px; /* Większy padding dla telefonów */
+      font-size: 18px; /* Większy domyślny rozmiar czcionki dla telefonów */
+    }
     h1 {
-      font-size: 2em; /* Adjust font size for smaller screens */
+      font-size: 3em; /* Większy rozmiar dla telefonów */
     }
     input[type="search"] {
-      padding: 12px; /* Slightly more padding for touch targets */
-      font-size: 1.1em; /* Larger font size for readability */
+      padding: 12px; /* Większy padding dla telefonów */
+      font-size: 1.2em; /* Większy rozmiar czcionki dla telefonów */
+      width: 100%; /* Pełna szerokość na telefonach */
     }
     button {
-      padding: 12px 25px; /* Slightly more padding for touch targets */
-      font-size: 1.1em; /* Larger font size for readability */
+      padding: 12px 25px; /* Większy padding dla telefonów */
+      font-size: 1.2em; /* Większy rozmiar czcionki dla telefonów */
+      width: 100%; /* Pełna szerokość na telefonach */
     }
     h3 {
-      font-size: 0.9em; /* Adjust font size for smaller screens */
+      font-size: 1.1em; /* Większy rozmiar dla telefonów */
     }
   }
 
-  @media (max-width: 400px) {
-    body {
-      padding: 10px; /* Less padding on very small screens */
-    }
+  @media (max-width: 480px) { /* Dodatkowe dostosowania dla bardzo małych telefonów */
     h1 {
-      font-size: 1.8em;
+      font-size: 2.5em;
     }
     input[type="search"],
     button {
+      font-size: 1.1em;
+      padding: 10px;
+    }
+    h3 {
       font-size: 1em;
     }
   }
