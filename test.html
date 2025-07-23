@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ProxyNet</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  h1 {
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  input[type="search"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    max-width: 80%;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  h3 {
+    margin-top: 20px;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+
+  <h1>ProxyNet</h1>
+  <input type="search" id="myInput" placeholder="Type text to Search...">
+  <button id="myButton">Search</button>
+  <h3>ProxyNet Powered By DuckDuckGo</h3>
+
+<script>
+  const myInput = document.getElementById('myInput');
+  const myButton = document.getElementById('myButton');
+
+  function myFunction() {
+    const inputText = myInput.value.trim(); // Use .trim() to remove leading/trailing whitespace
+    if (inputText === "") { // Correct comparison operator (===) and alert syntax
+      alert("Type a Text before search!");
+    } else {
+      window.location.href = "https://duckduckgo.com/?t=h_&q=" + encodeURIComponent(inputText) + "&ia=web";
+    }
+  } // Close the myFunction function here
+
+  myButton.addEventListener('click', myFunction);
+
+  // Optional: Allow pressing Enter to search
+  myInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      myFunction();
+    }
+  });
+</script>
+
+</body>
+</html>
