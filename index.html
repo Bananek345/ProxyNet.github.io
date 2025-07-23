@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>ProxyNet</title>
+<title>Wyszukiwarka</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -13,18 +13,22 @@
     margin: 0;
     background-color: #f4f4f4;
     color: #333;
+    padding: 20px; /* Added padding for smaller screens */
+    box-sizing: border-box; /* Include padding in element's total width and height */
   }
   h1 {
     color: #007bff;
     margin-bottom: 20px;
+    text-align: center; /* Center text for responsiveness */
   }
   input[type="search"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 300px;
-    max-width: 80%;
+    max-width: 100%; /* Changed to 100% to fill available width */
     margin-bottom: 10px;
+    box-sizing: border-box; /* Include padding and border in the element's total width */
   }
   button {
     padding: 10px 20px;
@@ -34,6 +38,9 @@
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%; /* Make button full width on smaller screens */
+    max-width: 300px; /* Limit button width on larger screens */
+    box-sizing: border-box;
   }
   button:hover {
     background-color: #0056b3;
@@ -41,6 +48,38 @@
   h3 {
     margin-top: 20px;
     color: #666;
+    text-align: center; /* Center text for responsiveness */
+  }
+
+  /* --- Media Queries for Responsiveness --- */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2em; /* Adjust font size for smaller screens */
+    }
+    input[type="search"] {
+      padding: 12px; /* Slightly more padding for touch targets */
+      font-size: 1.1em; /* Larger font size for readability */
+    }
+    button {
+      padding: 12px 25px; /* Slightly more padding for touch targets */
+      font-size: 1.1em; /* Larger font size for readability */
+    }
+    h3 {
+      font-size: 0.9em; /* Adjust font size for smaller screens */
+    }
+  }
+
+  @media (max-width: 400px) {
+    body {
+      padding: 10px; /* Less padding on very small screens */
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    input[type="search"],
+    button {
+      font-size: 1em;
+    }
   }
 </style>
 </head>
@@ -56,17 +95,16 @@
   const myButton = document.getElementById('myButton');
 
   function myFunction() {
-    const inputText = myInput.value.trim(); // Use .trim() to remove leading/trailing whitespace
-    if (inputText === "") { // Correct comparison operator (===) and alert syntax
+    const inputText = myInput.value.trim();
+    if (inputText === "") {
       alert("Type a Text before search!");
     } else {
       window.location.href = "https://duckduckgo.com/?t=h_&q=" + encodeURIComponent(inputText) + "&ia=web";
     }
-  } // Close the myFunction function here
+  }
 
   myButton.addEventListener('click', myFunction);
 
-  // Optional: Allow pressing Enter to search
   myInput.addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
       myFunction();
