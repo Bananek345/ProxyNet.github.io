@@ -3,6 +3,7 @@
 <head>
 <title>ProxyNet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -106,37 +107,60 @@
   const myInput = document.getElementById('myInput');
   const myButton = document.getElementById('myButton');
 
-  // Lista popularnych rozszerzeń domen, które będziemy sprawdzać
   const topLevelDomains = [
-    '.com', '.net', '.org', '.pl', '.co', '.io', '.xyz', '.online', '.info', '.biz', '.tech', '.app', '.dev', '.gov', '.edu'
+    '.com', '.net', '.org', '.pl', '.co', '.io', '.xyz', '.online', '.info', '.biz', '.tech', '.app', '.dev', '.gov', '.edu',
+    // Możesz dodać więcej rozszerzeń, np. krajowych
+    '.de', '.fr', '.uk', '.ca', '.au', '.jp', '.cn', '.br', '.ru', '.in', '.it', '.es', '.nl', '.se', '.no', '.ch'
   ];
+
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   function myFunction() {
     const inputText = myInput.value.trim();
 
     if (inputText === "") {
       alert("Type a Text before search!");
-      return; // Zatrzymaj funkcję, jeśli pole jest puste
+      return;
     }
 
-    // Sprawdź, czy wpisany tekst wygląda jak domena
+    // 1. Sprawdź, czy to jest pełny URL (z protokołem)
+    if (isValidUrl(inputText)) {
+      window.location.href = inputText;
+      return;
+    }
+
+    // 2. Sprawdź, czy to jest domena (bez protokołu, ale z TLD)
     let isDomain = false;
+    // Dodajemy 'www.' na początek, aby sprawdzić, czy np. 'www.google.com' zostanie uznane za domenę
+    const textToCheck = inputText.startsWith('www.') ? inputText : 'www.' + inputText;
+
     for (const tld of topLevelDomains) {
-      if (inputText.endsWith(tld) && inputText.length > tld.length + 1) { // Sprawdzamy czy kończy się na TLD i ma coś przed nim
-        isDomain = true;
-        break;
+      if (textToCheck.endsWith(tld) && textToCheck.length > tld.length + 1) {
+        // Prosta walidacja, czy przed TLD jest jakiś tekst (np. "google.com", a nie samo ".com")
+        const domainPart = textToCheck.substring(0, textToCheck.length - tld.length);
+        if (domainPart.length > 0 && !domainPart.endsWith('.')) { // Upewnij się, że nie kończy się na kropce przed TLD
+            isDomain = true;
+            break;
+        }
       }
     }
 
     if (isDomain) {
-      // Jeśli to wygląda jak domena, spróbuj przekierować bezpośrednio
+      // Jeśli to wygląda jak domena, dodaj https:// i przekieruj
       let url = inputText;
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url; // Dodaj https:// jeśli brakuje protokołu
+        url = 'https://' + url;
       }
       window.location.href = url;
     } else {
-      // W przeciwnym razie wyszukaj w DuckDuckGo
+      // 3. W przeciwnym razie wyszukaj w DuckDuckGo
       window.location.href = "https://duckduckgo.com/?t=h_&q=" + encodeURIComponent(inputText) + "&ia=web";
     }
   }
